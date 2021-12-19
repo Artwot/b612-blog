@@ -1,16 +1,31 @@
 import "./singlePost.css";
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const SinglePost = () => {
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  const [post, setPost] = useState({});
+
+  // Fetch the post's id
+  useEffect(() => {
+    const fetchPost = async () => {
+      const res = await axios.get("/posts/" + path);
+      setPost(res.data);
+    };
+    fetchPost();
+  }, [path]);
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
-          src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-          alt="Post"
-          className="singlePostImg"
-        />
+        {post.photo && (
+          <img src={post.photo} alt="Post" className="singlePostImg" />
+        )}
         <h1 className="singlePostTitle">
-          Lorem Ipsum dolor sit amet.
+          {post.title}
           <div className="singlePostEdit">
             <i className="singlePostIcon far fa-edit"></i>
             <i className="singlePostIcon far fa-trash-alt"></i>
@@ -18,30 +33,14 @@ const SinglePost = () => {
         </h1>
         <div className="singlePostInfo">
           <span className="singlePostAuthor">
-            Author: <b>Jorge</b>
+            Author:
+            <Link to={`/?user=${post.username}`} className="link">
+              <b>{post.username}</b>
+            </Link>
           </span>
           <span className="singlePostDate">1 hour ago</span>
         </div>
-        <p className="singlePostDescription">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sed,
-          voluptatem autem voluptatum soluta, architecto deleniti ipsa placeat
-          necessitatibus assumenda magni repudiandae impedit repellendus cumque
-          deserunt porro dolores sequi nam. Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit. Sunt sed, voluptatem autem voluptatum
-          soluta, architecto deleniti ipsa placeat necessitatibus assumenda
-          magni repudiandae impedit repellendus cumque deserunt porro dolores
-          sequi nam. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Sunt sed, voluptatem autem voluptatum soluta, architecto deleniti ipsa
-          placeat necessitatibus assumenda magni repudiandae impedit repellendus
-          cumque deserunt porro dolores sequi nam. Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit. Sunt sed, voluptatem autem voluptatum
-          soluta, architecto deleniti ipsa placeat necessitatibus assumenda
-          magni repudiandae impedit repellendus cumque deserunt porro dolores
-          sequi nam. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Sunt sed, voluptatem autem voluptatum soluta, architecto deleniti ipsa
-          placeat necessitatibus assumenda magni repudiandae impedit repellendus
-          cumque deserunt porro dolores sequi nam.
-        </p>
+        <p className="singlePostDescription">{post.desc}</p>
       </div>
     </div>
   );
