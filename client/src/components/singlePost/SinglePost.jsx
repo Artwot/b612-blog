@@ -8,6 +8,7 @@ const SinglePost = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
+  const publicFolder = "http://localhost:5000/images/";
 
   // Fetch the post's id
   useEffect(() => {
@@ -22,7 +23,11 @@ const SinglePost = () => {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img src={post.photo} alt="Post" className="singlePostImg" />
+          <img
+            src={publicFolder + post.photo}
+            alt="Post"
+            className="singlePostImg"
+          />
         )}
         <h1 className="singlePostTitle">
           {post.title}
