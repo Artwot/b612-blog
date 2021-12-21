@@ -5,6 +5,7 @@ import { Context } from "../../context/Context";
 
 const Topobar = () => {
   const { user, dispatch } = useContext(Context);
+  const publicFolder = "https://react-blog-123.herokuapp.com/images/";
 
   const handleLogout = (e) => {
     dispatch({ type: "LOGOUT" });
@@ -52,11 +53,13 @@ const Topobar = () => {
       {/* The right side of topbar is for the user's photo and the seacrh icon */}
       <div className="topRight">
         {user ? (
-          <img
-            className="topImg"
-            src={user.profilePic}
-            alt="User's profile"
-          />
+          <Link to="/settings">
+            <img
+              className="topImg"
+              src={publicFolder + user.profilePic}
+              alt="User's profile"
+            />
+          </Link>
         ) : (
           <ul className="topList">
             <li className="topListItem">
