@@ -1,8 +1,15 @@
 import "./topbar.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 const Topobar = () => {
-  const user = false;
+  const { user, dispatch } = useContext(Context);
+
+  const handleLogout = (e) => {
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
     <div className="top">
       {/* The left side of topbar is going to be for social media icons */}
@@ -35,7 +42,7 @@ const Topobar = () => {
               WRITE
             </Link>
           </li>
-          <li className="topListItem">
+          <li className="topListItem" onClick={handleLogout}>
             <Link to="/" className="link">
               {user && "LOGOUT"}
             </Link>
@@ -47,7 +54,7 @@ const Topobar = () => {
         {user ? (
           <img
             className="topImg"
-            src="https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=764&q=80"
+            src={user.profilePic}
             alt="User's profile"
           />
         ) : (
