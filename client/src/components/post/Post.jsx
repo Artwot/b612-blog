@@ -3,7 +3,7 @@ import "./post.css";
 
 const Post = ({ post }) => {
   // Local Photos Folder
-  const publicFolder = "http://localhost:5000/images/";
+  const publicFolder = "https://react-blog-123.herokuapp.com/images/";
 
   return (
     <div className="post">

@@ -8,7 +8,7 @@ const SinglePost = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
-  const publicFolder = "http://localhost:5000/images/";
+  const publicFolder = "https://react-blog-123.herokuapp.com/images/";
 
   // Fetch the post's id
   useEffect(() => {
