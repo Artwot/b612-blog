@@ -45,6 +45,7 @@ app.listen(PORT, () => {
   console.log("Backend is running.");
 });
 
+// Direccionamiento 
 // app.use("/lala", (req, res) => {
 //   console.log("This is my url.");
 // });
